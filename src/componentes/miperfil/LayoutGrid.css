@@ -1,0 +1,30 @@
+.left-column {
+    height: 100vh; /* Altura completa de la pantalla */
+  }
+  .right-column {
+    background-color: #eeeeee; /* Color gris */
+    height: 100vh;
+  }
+
+
+  #contenerTextoTitulo {
+    display: flex;
+    justify-content: center; /* Centrar horizontalmente */
+    align-items: center; /* Centrar verticalmente */
+    width: 100%;
+    color: white;
+    height: 120px;
+  }
+  
+  #fondoTextoTitulo {
+    width: 90%;
+    height: 65%;
+    background-color: #609191;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  #titulo {
+    margin: 0px;
+  }
