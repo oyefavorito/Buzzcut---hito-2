@@ -1,5 +1,5 @@
 import Footer from "../componentes/footer/Footer.jsx";
-import ProductoDetalle from "../componentes/productoDetalle/ProductoDetalle.jsx";
+import ColaboracionDetalle from "../componentes/productoDetalle/ColaboracionDetalle.jsx";
 
 import "./Views.css";
 
@@ -15,8 +15,8 @@ const ColaboracionesDetalle = () => {
         </div>
       </header>
 
-      {/*POOL DE PRODUCTOS*/}
-      <ProductoDetalle />
+      {/*POOL DE COLABORACIONES*/}
+      <ColaboracionDetalle />
 
       {/*FOOTER*/}
       <Footer />

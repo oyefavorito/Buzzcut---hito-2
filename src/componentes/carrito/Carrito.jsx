@@ -60,20 +60,34 @@ const CarritoProductos = () => {
               <td>
                 <img
                   id="carritoImgDetalle"
-                  src={productos.img}
+                  src={productos.img_url || productos.img} // Usa img_url si img no existe
                   alt={productos.nombre}
                 />
               </td>
-              <td className="w-75 text-capitalize" id="bordeCount">{productos.nombre}</td>
+              <td className="w-75 text-capitalize" id="bordeCount">
+                {productos.nombre}
+              </td>
               <td id="borde">
-                <Button id="botonCarritoMenos" onClick={() => decreaseCount(index)}>-</Button>
+                <Button
+                  id="botonCarritoMenos"
+                  onClick={() => decreaseCount(index)}
+                >
+                  -
+                </Button>
               </td>
               <td id="bordeCount">{productos.count}</td>
               <td id="borde">
-                <Button id="botonCarritoMas" onClick={() => increaseCount(index)}>+</Button>
+                <Button
+                  id="botonCarritoMas"
+                  onClick={() => increaseCount(index)}
+                >
+                  +
+                </Button>
               </td>
               <td id="bordeCount">=</td>
-              <td id="bordeCount">{monedaLocal(productos.count * productos.precio)}</td>
+              <td id="bordeCount">
+                {monedaLocal(productos.count * productos.precio)}
+              </td>
             </tr>
           ))}
         </tbody>
@@ -83,7 +97,9 @@ const CarritoProductos = () => {
               Total
             </td>
             <td>=</td>
-            <td className="fw-bold" id="totalPrecio">{monedaLocal(totalCart)}</td>
+            <td className="fw-bold" id="totalPrecio">
+              {monedaLocal(totalCart)}
+            </td>
           </tr>
         </tfoot>
       </Table>

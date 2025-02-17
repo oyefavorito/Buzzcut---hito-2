@@ -1,5 +1,4 @@
-import React from "react";
-import { useState, createContext, useEffect } from "react";
+import React, { useState, createContext, useEffect } from "react";
 
 // Contexto
 export const Context = createContext();
@@ -13,9 +12,8 @@ const AppContext = ({ children }) => {
     const fetchCardData = async () => {
       try {
         const res = await fetch("/json/productos.json");
-        if (!res.ok) {
+        if (!res.ok)
           throw new Error(`Error al obtener los datos: ${res.status}`);
-        }
         const data = await res.json();
         setCardItems(data);
       } catch (error) {
@@ -26,38 +24,52 @@ const AppContext = ({ children }) => {
     fetchCardData();
   }, []);
 
-  // Funciones de carrito
+  // ✅ Funciones de carrito
   const monedaLocal = (valor) =>
     valor.toLocaleString("es-CL", { style: "currency", currency: "CLP" });
 
   const addCart = (producto) => {
-    const foundIndex = cart.findIndex((item) => item.id === producto.id);
+    // Asegúrate de tener una propiedad 'id_producto' consistente
+    const productoId = producto.id_producto || producto.id;
 
-    if (foundIndex < 0) {
-      producto.count = 1;
-      setCart([...cart, producto]);
+    const foundIndex = cart.findIndex(
+      (item) => item.id_producto === productoId
+    );
+
+    if (foundIndex === -1) {
+      const nuevoProducto = {
+        id_producto: productoId,
+        nombre: producto.nombre,
+        img_url: producto.img_url || producto.img, // Unificar clave para imagen
+        precio: producto.precio,
+        count: 1,
+      };
+      setCart([...cart, nuevoProducto]);
     } else {
-      cart[foundIndex].count++;
-      setCart([...cart]);
+      const updatedCart = [...cart];
+      updatedCart[foundIndex].count++;
+      setCart(updatedCart);
     }
   };
 
   const increaseCount = (index) => {
-    cart[index].count++;
-    setCart([...cart]);
+    const updatedCart = [...cart];
+    updatedCart[index].count += 1;
+    setCart(updatedCart);
   };
 
   const decreaseCount = (index) => {
-    if (cart[index].count === 1) {
-      cart.splice(index, 1);
+    const updatedCart = [...cart];
+    if (updatedCart[index].count === 1) {
+      updatedCart.splice(index, 1);
     } else {
-      cart[index].count--;
+      updatedCart[index].count -= 1;
     }
-    setCart([...cart]);
+    setCart(updatedCart);
   };
 
   const totalCart = cart.reduce(
-    (acumulador, { precio, count }) => acumulador + precio * count,
+    (acc, item) => acc + item.precio * item.count,
     0
   );
 

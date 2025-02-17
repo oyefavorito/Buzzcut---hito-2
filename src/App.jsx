@@ -15,6 +15,7 @@ import VinilosDetalle from "./views/VinilosDetalle";
 import AudioDetalle from "./views/AudioDetalle";
 import FormularioRegistro from "./views/FormularioRegistro";
 import FormularioLogin from "./views/FormularioLogin";
+import PrivateRoute from "./componentes/miperfil/PrivateRoute";
 import MiPerfil from "./views/MiPerfil";
 
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -30,6 +31,7 @@ function App() {
           <BrowserRouter>
             <BarraNavegacion />
             <Routes>
+              {/* Rutas públicas */}
               <Route path="/" element={<Home />} />
               <Route path="/tornamesas" element={<Tornamesas />} />
               <Route path="/tornamesas/:id" element={<TornamesasDetalle />} />
@@ -38,12 +40,25 @@ function App() {
               <Route path="/audio" element={<Audio />} />
               <Route path="/audio/:id" element={<AudioDetalle />} />
               <Route path="/colaboraciones" element={<Colaboraciones />} />
-              <Route path="/colaboraciones/:id" element={<ColaboracionesDetalle />} />
+              <Route
+                path="/colaboraciones/:id"
+                element={<ColaboracionesDetalle />}
+              />
               <Route path="/carrito" element={<Carrito />} />
               <Route path="/registro" element={<FormularioRegistro />} />
               <Route path="/login" element={<FormularioLogin />} />
-              <Route path="/miperfil" element={<MiPerfil />} />
               <Route path="*" element={<NotFound />} />
+
+              {/* Ruta protegida */}
+
+              <Route
+                path="/miperfil"
+                element={
+                  <PrivateRoute>
+                    <MiPerfil />
+                  </PrivateRoute>
+                }
+              ></Route>
             </Routes>
           </BrowserRouter>
         </CardContext>
